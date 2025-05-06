@@ -1,0 +1,381 @@
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background-color: #1E1E1E;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-size: clamp(16px, 1.5vw, 20px);
+    /* KHÔNG dùng display: flex ở đây! */
+}
+
+.page1 {
+    background-color: #FFD9E0;
+}
+
+.intro-container {
+    background-color: #FCFAF6;
+    width: 50%;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 10px;
+    border: 4px solid #D9D9D9;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-size: clamp(28px, 3vw, 40px);
+}
+
+.page1 .title,
+.page2 .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    text-align: center;
+    color: #3D3D3D;
+    margin-bottom: 20px;
+}
+
+.page2 {
+    background-color: #FFF8F0;
+    color: #3D3D3D;
+    min-height: 100vh;
+    box-sizing: border-box;
+    /* KHÔNG dùng display: flex ở đây! */
+    display: block;
+}
+
+.page3 {
+    background-color: #FFF8F0;
+    color: #3D3D3D;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 20px 0;
+    display: block;
+}
+
+.page3 .poem-card {
+    background-color: #FADADD;
+    padding: 15px 20px; /* Giảm padding bên phải */
+    border-radius: 10px;
+    text-align: left;
+    width: 100%;
+    max-width: 750px; /* Giới hạn chiều rộng của card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(14px, 1.5vw, 18px);
+    margin: 10px auto; /* Căn giữa và giảm khoảng cách top/bottom */
+    line-height: 1.8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page3 .poem-card:hover {
+    transform: scale(1.05); /* Phóng to khi hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Tăng độ nổi khi hover */
+}
+
+.center-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* căn giữa dọc */
+    align-items: center;     /* căn giữa ngang */
+    padding: 40px 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.content {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    color: #3D3D3D;
+    margin-bottom: 20px;
+}
+
+.intro-text {
+    font-size: 20px;
+    color: #3D3D3D;
+    line-height: 1.6;
+    text-align: justify;
+    text-align-last: center;
+    margin: 0 15px;
+}
+
+.clue-intro {
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(16px, 1.8vw, 20px);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.start-button {
+    display: block;
+    width: clamp(140px, 15vw, 200px);
+    margin: 30px auto 0;
+    background-color: #E49393;
+    color: white;
+    text-align: center;
+    padding: clamp(10px, 1.5vw, 15px) 0;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: clamp(16px, 1.5vw, 20px);
+    transition: background-color 0.3s;
+}
+
+.start-button:hover {
+    background-color: #9B4444;
+}
+
+.animate-in {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.clue-intro, .hint, .input-section p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.poems {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.poem-card {
+    background-color: #FADADD;
+    padding: 15px; /* Giảm padding để giảm khoảng cách bên trong */
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(14px, 1.5vw, 18px);
+    margin: 10px 0; /* Giảm khoảng cách top và bottom */
+    line-height: 1.8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng mượt */
+}
+
+.poem-card:hover {
+    transform: scale(1.05); /* Phóng to khi hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Tăng độ nổi khi hover */
+}
+
+.hint {
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: #b68b8b;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.input-section {
+    text-align: center;
+    border: 2px dashed #E2D9D9;
+    border-radius: 12px;
+    background-color: #FFFDF9;
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.code-input-1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(14px, 1.5vw, 18px);
+    margin-bottom: 10px;
+}
+
+#codeInput {
+    padding: 12px 16px;
+    width: clamp(250px, 40vw, 400px);
+    border: 2px dashed #F4EBE0;
+    border-radius: 10px;
+    font-size: clamp(14px, 1.5vw, 18px);
+    background-color: #FFF8F0;
+    color: #3D3D3D;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+#codeInput:focus {
+    background-color: #FFF2E0;
+    border-color: #E49393;
+    outline: none;
+}
+
+.input-section button {
+    background-color: #E49393;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(14px, 1.5vw, 18px);
+    transition: background-color 0.3s;
+}
+
+.input-section button:hover {
+    background-color: #9B4444;
+}
+
+.result-message {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: red;
+}
+
+@keyframes vibrate {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    50% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+    100% { transform: translateX(0); }
+}
+
+.vibrate {
+    animation: vibrate 0.3s ease-in-out;
+}
+
+/* Thêm vào style.css hoặc trong <style> của mỗi file */
+.fade-out {
+    animation: fadeOut 0.6s forwards;
+}
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: scale(0.97) translateY(30px);
+    }
+}
+
+@media (max-width: 700px) {
+    .content {
+        padding: 0 2vw;
+        max-width: 100vw;
+    }
+    .center-wrapper {
+        padding: 10px 0;
+    }
+}
+
+body.page2 {
+    background-color: #FFF8F0;
+}
+
+body.page2 .center-wrapper,
+body.page3 .center-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+body.page2 .content.animate-in,
+body.page3 .content.animate-in {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+body.page2 .content.fade-out {
+    animation: fadeOut 0.6s forwards;
+}
+
+body.page3 .center-wrapper {
+    min-height: 100vh;
+    display: block; /* KHÔNG dùng flex để tránh lơ lửng giữa */
+    padding-top: 60px;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+body.page3 .content,
+body.page3 .content.animate-in {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+body.page3 .content.fade-out {
+    animation: fadeOut 0.6s forwards;
+}
+
+@media (max-width: 700px) {
+    body.page3 .center-wrapper {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    body.page3 .content {
+        padding: 0 2vw;
+        max-width: 100vw;
+    }
+}
+
+body.page4 .center-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+body.page4 .content.animate-in {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+body.page4 .content.fade-out {
+    animation: fadeOut 0.6s forwards;
+}
+
+body.page5 .center-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+body.page5 .content.animate-in {
+    max-width: 1100px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out;
+}
+

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clue #4</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <style>
+        .alias-row-hint {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .hint-list-text {
+            color: #b68b8b;
+            font-size: 18px;
+            font-style: italic;
+            font-family: 'Quicksand', sans-serif;
+        }
+        body {
+            background-color: #FFF8F0;
+            color: #3D3D3D;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+        }
+        .content {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            text-align: center;
+        }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            color: #3D3D3D;
+            margin-bottom: 20px;
+        }
+        .clue-intro {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(16px, 1.8vw, 20px);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .alias-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .alias-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 350px;
+            max-width: 90vw;
+            animation: fadeInUp 0.7s;
+        }
+        .alias-row input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px dashed #E2D9D9;
+            border-radius: 8px;
+            font-size: 18px;
+            background: #F9F6F2;
+            font-family: 'Quicksand', sans-serif;
+            transition: border-color 0.3s, background 0.3s;
+            outline: none;
+            animation: popIn 0.5s;
+        }
+        .alias-row input:focus {
+            border-color: #E49393;
+            background: #FFF2E0;
+        }
+        .alias-row .word-count {
+            color: #b68b8b;
+            font-size: 15px;
+            width: 70px;
+            text-align: right;
+            font-style: italic;
+        }
+        .alias-row .tick {
+            font-size: 1.7rem;
+            color: #E49393;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.3s, transform 0.3s;
+            margin-left: 5px;
+        }
+        .alias-row.correct .tick {
+            opacity: 1;
+            transform: scale(1.1);
+            animation: tickPop 0.4s;
+        }
+        @keyframes tickPop {
+            0% { opacity: 0; transform: scale(0.7);}
+            60% { opacity: 1; transform: scale(1.2);}
+            100% { opacity: 1; transform: scale(1.1);}
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: translateY(30px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .hint-list {
+            position: absolute;
+            right: 18vw;
+            top: 270px;
+            color: #B6A6A6;
+            font-size: 16px;
+            text-align: left;
+            font-style: italic;
+            line-height: 1.7;
+        }
+        .input-section {
+            text-align: center;
+            border: 2px dashed #E2D9D9;
+            border-radius: 12px;
+            background-color: #FFFDF9;
+            padding: 20px;
+            max-width: 700px;
+            margin: 30px auto 0 auto;
+        }
+        .code-input-1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(14px, 1.5vw, 18px);
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        #codeInput {
+            padding: 12px 16px;
+            width: clamp(250px, 40vw, 400px);
+            border: 2px dashed #F4EBE0;
+            border-radius: 10px;
+            font-size: clamp(14px, 1.5vw, 18px);
+            background-color: #FFF8F0;
+            color: #3D3D3D;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        #codeInput:focus {
+            background-color: #FFF2E0;
+            border-color: #E49393;
+            outline: none;
+        }
+        .input-section button {
+            background-color: #E49393;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(14px, 1.5vw, 18px);
+            transition: background-color 0.3s;
+        }
+        .input-section button:hover {
+            background-color: #9B4444;
+        }
+        .result-message {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: clamp(14px, 1.5vw, 18px);
+            color: red;
+            text-align: center;
+        }
+        .vibrate {
+            animation: vibrate 0.3s ease-in-out;
+        }
+        @keyframes vibrate {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            75% { transform: translateX(-2px); }
+            100% { transform: translateX(0); }
+        }
+        @media (max-width: 700px) {
+            .content { max-width: 98vw; }
+            .alias-row { width: 98vw; }
+            .hint-list { right: 2vw; top: 350px; }
+        }
+    </style>
+</head>
+<body class="page3">
+    <div class="center-wrapper">
+        <div class="content animate-in">
+            <h1 class="title">Clue #4: Mật danh</h1>
+            <p class="clue-intro">
+                Xem video cảm nhận sao nà 💢 Làm lâu lắm luôn đó 😔 Nhưng! làm thám tử mà không có "mật danh" để gọi thì lộ là cái chắc 😱 Tưởng thuyen làm thám tử hả? Không đâu nhaa 😉 Là dwang đây 😎 Bé hãy list các mật danh của dwang nhé💘 (Nhập vào nếu đúng nó sẽ tự tick vào ạ, không dấu)
+            </p>
+            <div style="position:relative;">
+                <div class="alias-list">
+                    <div class="alias-row" id="row0">
+                        <span class="word-count">(3 words)</span>
+                        <input type="text" id="alias0" placeholder="Name......" autocomplete="off">
+                        <span class="tick">✓</span>
+                    </div>
+                    <div class="alias-row" id="row1">
+                        <span class="word-count">(4 words)</span>
+                        <input type="text" id="alias1" placeholder="Name......" autocomplete="off">
+                        <span class="tick">✓</span>
+                    </div>
+                    <div class="alias-row" id="row2">
+                        <span class="word-count">(5 words)</span>
+                        <input type="text" id="alias2" placeholder="Name......" autocomplete="off">
+                        <span class="tick">✓</span>
+                    </div>
+                    <div class="alias-row" id="row3">
+                        <span class="word-count">(5 words)</span>
+                        <input type="text" id="alias3" placeholder="Name......" autocomplete="off">
+                        <span class="tick">✓</span>
+                    </div>
+                    <div class="alias-row" id="row4">
+                        <span class="word-count">(6 words)</span>
+                        <input type="text" id="alias4" placeholder="Name......" autocomplete="off">
+                        <span class="tick">✓</span>
+                    </div>
+                </div>
+                <div class="alias-row-hint">
+                    <span class="hint-list-text">
+                        (Hint: 3 - 1, 4 - 2, 5 - 3, 5 - 4, 6 - 5)
+                    </span>
+                </div>
+            </div>
+            <div class="input-section">
+                <p class="code-input-1">Nhập mật mã mà bé đã tìm ra để nhận manh mối tiếp theo nhé</p>
+                <input type="text" id="codeInput" placeholder="Key..." disabled>
+                <button onclick="checkCode()" disabled id="okBtn">OK!</button>
+                <p id="result" class="result-message"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Security: Only allow access if clue3Completed is set
+        if (localStorage.getItem("clue3Completed") !== "true") {
+            alert("Ăn giann kìaa");
+            window.location.href = "intro.html";
+        }
+        // Đáp án các alias
+        const answers = [
+            "bap",
+            "diqi",
+            "dling",
+            "dwang",
+            "tintin"
+        ];
+        // Animation và kiểm tra đúng
+        let correct = [false, false, false, false, false];
+        for (let i = 0; i < 5; i++) {
+            const input = document.getElementById('alias' + i);
+            const row = document.getElementById('row' + i);
+            input.addEventListener('input', function() {
+                if (input.value.trim().toLowerCase() === answers[i]) {
+                    row.classList.add('correct');
+                    input.disabled = true;
+                    correct[i] = true;
+                    checkAllCorrect();
+                } else {
+                    row.classList.remove('correct');
+                    correct[i] = false;
+                    document.getElementById('codeInput').disabled = true;
+                    document.getElementById('okBtn').disabled = true;
+                }
+            });
+        }
+        function checkAllCorrect() {
+            if (correct.every(Boolean)) {
+                document.getElementById('codeInput').disabled = false;
+                document.getElementById('okBtn').disabled = false;
+                document.getElementById('codeInput').focus();
+            }
+        }
+        // Kiểm tra key cuối cùng
+        function checkCode() {
+            const input = document.getElementById("codeInput").value.trim().toLowerCase();
+            const result = document.getElementById("result");
+            if (input === "biini") {
+                localStorage.setItem("Completed", "true");
+                document.querySelector('.content').classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = "cc5.html";
+                }, 600);
+            } else {
+                result.textContent = "❌ ẹc ẹc ❌";
+                result.style.color = "red";
+                result.classList.add("vibrate");
+                setTimeout(() => {
+                    result.classList.remove("vibrate");
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

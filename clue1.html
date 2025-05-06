@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Clue #1</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+</head>
+<body class="page2">
+    <div class="center-wrapper">
+        <div class="content animate-in">
+            <h1 class="title">Clue #1: Mật “thơ”</h1>
+            <p class="clue-intro">Welcome “du” to my first clue 🥰 Đây là manh mối đầu tiên để thử trình của bé như thế nào nè. Vận dụng trí nhớ nha, không cần suy nghĩ gì phức tạp đâu ạ! 🤓</p>
+            <div class="poems">
+                <div class="poem-card">
+                    <span># 1</span>
+                    <p>Buổi đầu mình cùng date<br>Ở một chốn đông người?<br>Có em, anh, và bạn<br>Trao nhau những lần đầu</p>
+                </div>
+                <div class="poem-card">
+                    <span># 2</span>
+                    <p>Hôm ấy trời thật đẹp<br>Riêng em cười thật xinh<br>Anh bồi hồi tự hỏi<br>Em còn nhớ hôm nào?</p>
+                </div>
+                <div class="poem-card">
+                    <span># 3</span>
+                    <p>Món quà đầu anh tặng<br>Anh lại chẳng hề đưa<br>Nhưng lại khi em nhận<br>Trông em thật bất ngờ</p>
+                </div>
+            </div>
+            <p class="hint">(Hint: Bé hãy lấy chữ cái đầu của mỗi thứ được nhắc đến trong “mật thơ”, nếu số thì là theo form “0124”. Sau đó ghép tất cả lại, viết thường nha 🫶)</p>
+            <div class="input-section">
+                <p class="code-input-1">Nhập mật mã mà bé đã tìm ra để nhận manh mối tiếp theo nhé</p>
+                <input type="text" id="codeInput" placeholder="Key...">
+                <button onclick="checkCode()">OK!</button>
+                <p id="result" class="result-message"></p>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        // Kiểm tra nếu người dùng chưa hoàn thành bước 1
+        if (localStorage.getItem("introCompleted") !== "true") {
+            alert("Ăn giann kìaa");
+            window.location.href = "intro.html"; // Chuyển hướng về trang trước
+        }
+
+        // Đánh dấu bước 2 đã hoàn thành khi nhập đúng mã
+        function checkCode() {
+            const input = document.getElementById("codeInput").value.trim().toLowerCase();
+            const result = document.getElementById("result");
+            if (input === "a2302t") {
+                localStorage.setItem("clue1Completed", "true");
+                document.querySelector('.content').classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = "clue2.html";
+                }, 600);
+            } else {
+                result.textContent = "❌ ẹc ẹc ❌";
+                result.style.color = "red";
+                result.classList.add("vibrate");
+                setTimeout(() => {
+                    result.classList.remove("vibrate");
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

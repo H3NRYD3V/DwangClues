@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Congratulations 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            /* Gradient nền động từ dưới lên */
+            background: linear-gradient(
+                to top,
+                #FFDADD 0%,
+                #FFDADD 40%,
+                #FFF8F0 100%
+            );
+            animation: gradientMove 3s ease-in-out infinite alternate;
+            background-size: 100% 300%;
+            background-position: 0 100%;
+            transition: background 0.5s;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0 100%; }
+            100% { background-position: 0 0%; }
+        }
+        .container {
+            max-width: 900px;
+            margin: 48px auto 48px auto;
+            background: #fff8f0e6;
+            border-radius: 14px;
+            box-shadow: 0 4px 32px #e4939340;
+            padding: 36px 24px 32px 24px;
+            border: 3px solid #FFDADD;
+            animation: fadeInUpEnd 1s cubic-bezier(.4,2,.6,1);
+        }
+        @keyframes fadeInUpEnd {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        .congrats-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #E49393;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .congrats-desc {
+            font-size: 1.15rem;
+            color: #3D3D3D;
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Quicksand', sans-serif;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        .letter-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.1rem;
+            color: #7b5c5c;
+            text-align: center;
+            margin: 36px 0 18px 0;
+            letter-spacing: 2px;
+            text-shadow: 1px 2px 6px #ffdadd80;
+        }
+        .letter-content {
+            background: #fff;
+            border-radius: 10px;
+            border-left: 6px solid #FFDADD;
+            box-shadow: 0 2px 12px #ffdadd40;
+            padding: 0px 20px 0px 32px;
+            font-family: 'Playwrite RO', serif;
+            font-size: 1.15rem;
+            color: #3D3D3D;
+            line-height: 2;
+            margin: 0 auto;
+            max-width: 780px;
+            min-height: 220px;
+            text-align: left;
+            white-space: pre-line;
+        }
+        @media (max-width: 900px) {
+            .container { padding: 18px 2vw 18px 2vw; }
+            .letter-content { padding: 0px 8px 0px 16px; }
+        }
+        @keyframes modalPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.85) translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        @keyframes modalPopBig {
+            0% {
+                opacity: 0;
+                transform: scale(0.7) translateY(80px) rotate(-8deg);
+                filter: blur(8px);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-8px) rotate(2deg);
+                filter: blur(0.5px);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+                filter: none;
+            }
+        }
+        @keyframes modalBgFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes popInText {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+                filter: none;
+            }
+        }
+        #specialBtn, #closeModal {
+            font-family: 'Quicksand', sans-serif !important;
+        }
+        #specialBtn:hover, #closeModal:hover {
+            background: linear-gradient(90deg, #FFDADD 60%, #E49393 100%);
+            color: #fff;
+            transform: translateY(-2px) scale(1.08) rotate(-2deg);
+            box-shadow: 0 8px 32px #e4939340, 0 2px 18px #ffdaddb0;
+        }
+        #specialBtn:active, #closeModal:active {
+            transform: scale(0.97);
+            background: #FFDADD;
+            color: #7b5c5c;
+        }
+        #specialBtn::after {
+            content: "";
+            position: absolute;
+            left: -60%;
+            top: 0;
+            width: 220%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 60%, #fff8f0 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        #specialBtn:hover::after {
+            opacity: 0.22;
+            animation: btnShine 0.7s linear;
+        }
+        @keyframes btnShine {
+            0% { left: -60%; }
+            100% { left: 100%; }
+        }
+        /* Responsive modal */
+        @media (max-width: 600px) {
+            #modalContent {
+                padding: 24px 6vw 24px 6vw !important;
+                min-width: 0 !important;
+            }
+            #specialBtn, #closeModal {
+                padding: 10px 18vw !important;
+                font-size: 1rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        if (localStorage.getItem("step7Completed") !== "true") {
+            alert("Ăn giann kìaa");
+            window.location.href = "intro.html";
+        }
+    </script>
+    <div class="container" id="endContainer">
+        <div class="congrats-title">🎉 CONGRATULATIONS 🎉</div>
+        <div class="congrats-desc">
+            Thật sự là dwang rất là chúc mừng thuyenn khi đã đi được tới đây rồi 🎊 Một thử thách dài 7 manh mối đã được bé giải quyết một cách đầy thuyết phục và không có gì để chê nha! 🫶 Sau đây là bức thư kỉ niệm  nói lên tâm sự và suy nghĩ của dwang cho những tháng ngày sắp tới của dwang và dwang còn muốn gửi tặng thuyenn và một “chiếc quà” nho nhỏ nữa ạ 💗 Chúc bé đọc thư thật duiii
+        </div>
+        <div class="letter-title">THREE MONTHS WITH YOU 🖤</div>
+        <div class="letter-content" id="letterContent">
+        Dear my bae,
+        Thời gian trôi qua mau ghê, thuyen nhỉ? Thật ra là lúc trước t tính theo ngày cơ, nhưng mà thấy rối rắm quá nên nghỉ luôn. Nhưng mà chắc khi thuyen giải được tới đây thì không còn là ngày 6/5 nữa đâu nhờ, để t đoán thử nha lúc thuyen đang đọc là ngày 1/6 phải không?! Ba tháng vừa qua quả là khó khăn thật đó. T thấy thuyen còn giận t nhiều hơn trước nữa cơ. Mỗi lần giận vậy cái là t khổ, dỗ dành muốn chết luôn mà toàn bị đuổi không à huhu... còn bị bơ rồi đủ thứ nữa. Thấy là thuyen hơi bị bướng á nha! Dwang quạo rồi đó!! Lâu lâu thì thuyen cũng có hay để dwang một mình rồi đi chơi với ai cũng chả ai hay biết gì luôn, báo hại thằng này ngồi thu lu có một góc chờ mòn chờ mỏi mới thấy mặt thuyen nên giận quá trời giận đó. But! Thuyen dỗ có xíu rồi giận ngược lại t mới chịu chứ lị. T cố gồng cỡ mấy nếu thuyen chịu hun hun một tí là tự nhiên thằng dwang xưa nó quay trở lại nó ôm thuyen vào lòng à. Chán ghê á, t bị ghiền skinship mà đi đâu cũng thấy bọn tổ trưởng, lớp trưởng, giáo viên, giám thị,... nhòm ngó bực hết cả mình. Chả có khi nào t được skinship thoải mái cả. À mà cũng có khi thuyen bạo bạo t cũng được hưởng kha khá nè. Giống như mấy lúc len lén trong lớp đó, sướng quá trời sướng, đã quá trời đã luôn! Cay cái lần hồi hôm bị ông Thành quay phim ghê ạ. Báo phụ huynh xong tưởng nhắn không ai ngờ còn gửi cả video mới chịu. Ghi nhận vi phạm luôn, hay lắm nha. Kiểu hôm đó về t không hiểu thay vì lo cho bản thân t thì t lại cho thuyen nhiều hơn í, sợ thuyen bị cấm quen t rồi tùm lum chuyện phát sinh... Mà rút cuộc thì hai đứa cũng chỉ bị nhắc nhẹ thôi hên thật chứ!
+
+        Về vấn đề học tập thì t thấy sau khi quen thuyen thì t có động lực học hơn nè, để còn được thưởng “quà” của bé nữa chứ! Không trên chín thì tiếc rất tiếc luôn. Bữa lập cái bảng xếp hạng lớp coi thử mà thấy hạng bốn hết cả hồn ạ. Thuyen thì t thấy học cũng OK phết nè. Top mười bốn lớp là cũng dữ rồi, hơn ba mươi người hơn chứ dỡn đâu. Hơi phàn nàn vụ học bài của thuyen nha! Thấy là phao nó chiếm đa số điểm bài kiểm tra của bé rồi đó, hì hì. Thuyen rất hay nói tiếng Anh, một điểm rất là tốt và t rất muốn giống vậy nhưng t quá ngại. I’m introvert! Nếu mà thuyen chịu khó học ngữ pháp thì có thể nói thuyen sẽ được điểm rất cao trong mắt mọi người đó. Hiện tại cần chỉnh hơi bị nhiều xíu, nhưng đa số các câu đơn giản thuyen nói cũng tàm tạm. Môn Toán có gia sư kèm riêng rồi, đâu còn đếm xỉa đến thằng này đúng không nhờ? Muốn học được như t á hả? Nghe giảng, học bài đừng quá sát ngày thi, ôn tập thường xuyên lại kiến thức và cạp miếng thịt của thuyen là tự nó giỏi lên à<3
+
+        Để t chia sẻ cho thuyen suy nghĩ & tâm sự của t nhé! Nói thật ra thì không hẳn là mỗi đêm nhưng nhiều đêm t rất hay khóc nhớ thuyen. Nghe nó con gái vãi luôn á... Nhưng không hiểu sao từ khi quen thuyen thì t cảm thấy bản thân yếu đuối hơn thường, chỉ muốn ở bên người yêu ăn vạ, nhõng nhẽo suốt thôi... Cái này là tính cách thật của t đó. T chỉ muốn một ai đó yêu t khi t sống thật với cái tính này thôi à. Love me at my worst đó. Còn khi thuyen giận dỗi t là cảm giác nó rất là ức luôn, kiểu dỗ hoài không được nó bị ức nghẹn ấy. Mấy lúc đó chỉ muốn khóc ra hết nhưng mà tiếc là trong trường mọi người phán xét mình... Giờ kiếm những lúc t với thuyen được riêng tư hoàn toàn chỉ có hai đứa bên nhau mới khó. Nhiều khi t chỉ muốn bắt cóc thuyen ra ở riêng với t còn mọi chuyện trường học đồ các kiểu kệ hết nó ra sao thì ra. Nếu thuyen thắc mắc mỗi lúc dwang đi chơi một mình dwang làm gì thì nói thẳng ra thì chẳng làm gì cả. Không biết làm một cái gì luôn. Lâu lâu có bài thì lấy ra làm thôi chứ còn mấy cái lúc kia t thật sự không biết làm gì... Kiểu chỉ muốn đi chơi với thuyen mà thuyen dành thời gian cho bạn bè nhiều hơn rồi đâu có cấm cản được đâu. Buồn ghê chưa kìa... Thuyen nè, thật ra là t cũng khó ghen lắm á. Mấy lúc thấy chuyện thật sự ghen thì bản thân nó tự ghen chứ t không có ghen mấy cái chuyện nhỏ nhặt làm chi. Nói trước, t mà ghen là thuyen sẽ đau lắm đó! Ngoài ra, khi đã có người yêu rồi, t rất ghét phải nghỉ lễ dài. T chỉ muốn đi học suốt với thuyen để thuyen nghỉ lễ không cảm thấy chán hay gì cả... Càng nghỉ lâu t càng anti ấy, anti cả hè luôn. Nếu có tiền thì t sẽ hối lộ cho chính phủ để cho luật học sinh cấm nghỉ hè khi đã có “người thương” luôn cho bõ! Không hề đùa đâu!
+
+        Thì quanh đi quẩn lại t với thuyen cũng đi được tới ba tháng rồi. Khoảng thời gian này không còn ít nữa, mà nó đã trở thành một cột mốc đầy ắp kỉ niệm của hai đứa rồi, thuyen nhỉ? Thì trong ba tháng này, theo suy nghĩ thật hiện tại của t thì thuyen dần giảm bớt sự quan tâm đối với t và thay vào đó là dành thời gian cho chị em, bạn bè của mình nhiều hơn chứ không phải là t giống trong các tháng đầu nữa. Điều này, mọi người nhìn vào sẽ thấy tốt cho thuyen cũng như dwang tại vì cả hai không còn phụ thuộc vào nhau quá nhiều nữa nhưng mà đối với t thì ngược lại, t cảm thấy việc thuyen dành thời gian cho người khác làm cho t cảm thấy rất là cô đơn luôn, đôi lúc còn buồn muốn khóc chết đi được ấy… Quen được thuyen đã là điều may mắn của đời t rồi! Nhưng t không biết phải làm gì, chơi với ai lúc thuyen đang vui vẻ với người khác cả. Nếu được thì thuyen cho dwang một lời khuyên được không? Tại vì khi soạn bức thư này, dwang đã rời nhóm và block thằng Khoa rồi. Một phần là do t thấy chơi với tụi nó chỉ làm thuyen giận thêm thôi chứ chả làm được cái gì nên thôi t bỏ quách cho xong. Hai phần là vì cái nhóm đấy giờ toàn trộm với chả cắp nên là t nghĩ là không nên chơi nữa. Bây giờ thì trống trải, thiếu vắng, t chỉ muốn có một cái ôm thật chặt mỗi khi t buồn thôi.
+ 
+        Hè sắp tới… là cái thứ mà t đang lo lắng nhất lúc này đó, t biết là mình không nên cứ sống trong quá khứ mãi nhưng xin phép thuyen cho dwang nhắc lại một chút về người cũ. Cũng là năm trước, hình như là t quen nó cũng nhằm vào tháng hai, rồi quen nhau coi như là hạnh phúc đi. Tới hè, lúc đó bản thân còn tin tưởng vào đối phương, t soạn một bức thư nhỏ và tặng nó một cây son coi như xong. Nó cũng soạn cho t một bức thư hai mặt, nội dung đại loại là nếu cả hai cùng cố gắng thì sẽ vượt qua hè. Rút cuộc thì sao? Nhắn tin được mấy ngày xong nó nói lời chia tay.
+
+        Ba tháng chuẩn bị đến với hai đứa mình, t biết chắc là sẽ rất khó khăn trước mắt đó. T không muốn lặp lại quá khứ, t muốn t đặt lòng tin vào đúng người và t tin là thuyen sẽ không phụ lòng t. Hai đứa đã yêu nhau đậm sâu tới thế mà? Không thể nào cứ nói chia tay là chia tay được. Sau mỗi cuộc cãi vã, sau mỗi lần giận dỗi nhau, cả hai hãy cùng bên nhau an ủi, động viên lẫn nhau để bản thân và đối phương cùng được thấu hiểu, và để mối quan hệ này được dài lâu hơn. Im lặng – Silent Treatment, là thứ mà t rất ngán ngẩm và rất buồn nếu thuyen làm như vậy với t đó. Nếu cãi nhau, rồi hai bên đều im lặng suốt, thì mối quan hệ này sẽ kết thúc rất chóng vánh, đã có những trường hợp t thấy đã là như vậy rồi. T nghĩ mùa hè này nếu muốn bền lâu thì t với thuyen phải kiếm một môn nào đó để học với nhau, chung một phòng học, chung một chiếc bàn, nói chuyện cười đùa với nhau mỗi khi vào lớp thật vui để mình không quên đi đối phương. Còn nếu thuyen không muốn đi học chung thì chỉ còn cách là tin tưởng nhau và nhắn tin để chờ đợi thời gian trôi qua thật mau thôi. Sẽ rất khó đó. Nhưng nhắc lại là, mong thuyen sẽ chịu khó ba tháng để vào tháng tám để cả hai sẽ cùng được gặp lại nhau dưới mái trường lớp chín nha. T nghĩ là sẽ có đôi khi t qua nhà thuyen chơi nữa, nhưng mà chỉ có vài tiếng lại thôi t lại về  rồi… Và cũng có thể là sẽ có những buổi date của hai tụi mình nữa! Tuy là kết thúc cũng nhanh, mấy tiếng thôi, rồi ai lại về nhà nấy, nhưng t nghĩ có những buổi dating giống như vậy sẽ giúp cả hai gắn kết hơn, phải không nhờ?
+ 
+        Trước khi kết thúc bức thư này, t sẽ chia sẻ vài lời về chiếc website nho nhỏ mà t đã làm nhé. Thật ra thì lúc đầu tính mua quà rồi tặng thuyen luôn cho nó nhanh cơ, nhưng mà nghĩ đi nghĩ lại thì thấy sau lần này rồi thì phải đợi hết hè mới có dịp tặng lại quà cho thuyen nên t quyết định là sẽ làm cái web này. Mong là nó sẽ mang lại một ấn tượng nào đó đặc biệt sâu sắc cho thuyen ạ. Nói nghe nè, mấy cái lúc trong lớp là t lên plan rồi idea mấy cái manh mối vào giấy á nên không có cho thuyen xem được. Nên là mỗi lần thuyen dọa là sẽ xem t hoảng quá trời hoảng luôn. Bí mật quốc gia mà, đâu có cho ai biết được, hì hì. T bắt đầu công cuộc chuẩn bị đầy gian khổ này từ ngày 21/4 cho đến giờ xong là 7/5, huhu trễ mất tiêu luôn. Cũng được hơn nửa tháng chứ bộ. Thì cái bước đầu với bước cuối là khó nhất, tại vì bước đầu là lên tất cả khung sườn rồi idea cho mấy cái manh mối suy nghĩ muốn nát cả óc ra. Ráng ráng cả tuần rồi thì cũng xong phác thảo bảy manh mối, ráng thêm tuần nữa thì làm xong cái web. Nói thật chứ cái bước hai là thiết kế cho web trên app nó đẹp lung linh luôn. Rồi sao? Code thành web nó khó vãi ra ấy, phải cầu cứu chatgpt rồi copilot mới kịp làm cho xong cái web cho đúng deadline nữa.Ý tưởng thì ô kê lắm nhưng mà tới lúc làm thì mới biết nó rất là quải nha! Trong lúc code thì t có chụp lại mấy con mèo trên vscode để gợi ý cho thuyen chút về web này mà hình như thuyen cũng không quan tâm tới lắm hay sao á. Chúng nó thì đẻ cả ổ đầy hết máy dwang mà ai đó có để tâm miếng nào đâu!
+ 
+        Thư dài quá dài rồi. Chắc thuyen đọc từ đầu tới giờ cũng ngán lắm… Tại vì tâm sự & suy nghĩ của t trước khi đến mùa hè rất là nhiều, thật ra là còn nữa cơ nhưng mà t nghĩ nếu nói cho thuyen nhiêu đây thì thuyen sẽ phần nào hiểu và cùng dwang đi đến hết quãng đường đầy khó khăn này. Sợ thuyen không tin chứ thật ra bé là người dwang thương, dwang nguyện yêu đến hết đời. Mất thuyen chắc… tự tử quá. Mà thôi, nói chứ bé chịu đọc đến đây đã là vui lắm rồi. Không biết lúc đọc bức thư này, tụi mình đã thi xong cuối kỳ Hai chưa nữa ha? Hoặc có khi là ngáp ngáp sắp nghè luôn rồi huhu.T là một chàng trai rất dễ yếu đuối và xiêu lòng trước người mình yêu, và sẽ làm tất cả điều gì khiến người ta vui lòng và yêu mình hơn. Bé hãy hiểu cho dwang nhé! Tính nó vậy rồi thử đổi mấy lần có được đâu.
+
+        Dwang xin kết thúc bức thư này ở đây ạ. Chúc bé thi học kỳ sẽ có điểm thật cao, để còn được ăn kẹo của t mua và được nở mày nở mặt trước gia đình và bạn bè nữa. Chúc bé mùa hè sắp tới sẽ thật hạnh phúc bên gia đình mình, được đi chơi thật nhiều, được nghỉ thật vui và được mua những thứ mình mong muốn.Chúc bé nhan sắc sẽ ngày càng đẹp hơn, vòng một nở nang, vòng ba bự chảng nha (thằng này cũng muốn hưởng mà!). Cuối cùng, hy vọng bé sẽ yêu dwang nhiều hơn mỗi ngày và mỗi lúc một nhớ thằng này hơn nha.
+        
+        Võ. Nguyễn. Thảo.Uyên. – Anh.Yêu.Em
+    
+        From your darling,
+        Nguyễn Duy Quang
+
+        P/s: Hy vọng bé sẽ thích món quà lần này của dwang! Dày công chuẩn bị cả nửa tháng trời giờ bé không thích nữa dwang này chịu chết luôn ^^
+
+        </div>
+        <!-- Nút Special Code -->
+        <div style="text-align:center; margin-top:36px;">
+            <button id="specialBtn" style="
+                font-family: 'Quicksand', sans-serif;
+                font-size: 1.25rem;
+                font-style: italic;
+                background: #FFDADD;
+                color: #7b5c5c;
+                border: none;
+                border-radius: 10px;
+                padding: 14px 48px;
+                box-shadow: 0 4px 18px #ffdadd80;
+                cursor: pointer;
+                transition: 
+                    background 0.22s, 
+                    color 0.22s, 
+                    transform 0.22s cubic-bezier(.4,2,.6,1), 
+                    box-shadow 0.22s cubic-bezier(.4,2,.6,1);
+                font-weight: 700;
+                letter-spacing: 1.5px;
+                position: relative;
+                overflow: hidden;
+            ">Special Code</button>
+        </div>
+        <!-- Modal Special Code -->
+        <div id="specialModal" style="
+            display:none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 218, 221, 0.45);
+            backdrop-filter: blur(3px);
+            animation: modalBgFadeIn 0.5s;
+            transition: opacity 0.5s cubic-bezier(.4,2,.6,1);
+        ">
+            <div id="modalContent" style="
+                background: #fff8f0;
+                border-radius: 28px;
+                box-shadow: 0 12px 64px #e4939340, 0 2px 24px #ffdadd80;
+                padding: 54px 48px 44px 48px;
+                text-align: center;
+                min-width: 340px;
+                max-width: 98vw;
+                border: 4px solid #FFDADD;
+                font-family: 'Quicksand', sans-serif;
+                position: relative;
+                z-index: 2;
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+                transition: 
+                    opacity 0.6s cubic-bezier(.4,2,.6,1), 
+                    transform 0.6s cubic-bezier(.4,2,.6,1);
+            ">
+                <div style="
+                    font-family: 'Pacifico', cursive;
+                    font-size: 2.3rem;
+                    color: #E49393;
+                    margin-bottom: 18px;
+                    font-weight: bold;
+                    letter-spacing: 2px;
+                    text-shadow: 0 4px 16px #ffdadd80;
+                ">
+                    Special Code
+                </div>
+                <div style="
+                    font-size: 1.35rem;
+                    color: #a05c5c;
+                    margin-bottom: 32px;
+                    font-family: 'Quicksand', sans-serif;
+                    font-style: italic;
+                    font-weight: 700;
+                    line-height: 1.7;
+                ">
+                    Em iu của dwang đã hoàn thành hết các manh mối!
+                </div>
+                <div style="
+                    font-size: 1.15rem;
+                    color: #E49393;
+                    font-family: 'Quicksand', sans-serif;
+                    font-weight: bold;
+                    font-style: italic;
+                    margin-top: -18px;
+                    margin-bottom: 18px;
+                    letter-spacing: 0.5px;
+                    text-shadow: 0 2px 8px #fff8f0;
+                ">
+                    Hãy cap lại và gửi dwang để nhận quà nhé!
+                </div>
+                <button id="closeModal" style="
+                    font-family: 'Quicksand', sans-serif;
+                    font-size: 1.15rem;
+                    background: #FFDADD;
+                    color: #7b5c5c;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 12px 38px;
+                    box-shadow: 0 2px 12px #ffdadd60;
+                    cursor: pointer;
+                    transition: background 0.22s, color 0.22s, transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s cubic-bezier(.4,2,.6,1);
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                    margin-top: 10px;
+                ">Đóng</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Animation chuyển trang từ clue7 qua end.html
+        document.body.style.opacity = 0;
+        document.body.style.transition = "opacity 0.8s cubic-bezier(.4,2,.6,1)";
+        window.addEventListener("DOMContentLoaded", function() {
+            setTimeout(() => {
+                document.body.style.opacity = 1;
+            }, 80);
+        });
+
+        // Special Code Modal
+        const specialBtn = document.getElementById('specialBtn');
+        const specialModal = document.getElementById('specialModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalContent = document.getElementById('modalContent');
+        if (specialBtn && specialModal && closeModal && modalContent) {
+            specialBtn.onclick = function() {
+                specialModal.style.display = "flex";
+                setTimeout(() => {
+                    modalContent.style.opacity = "1";
+                    modalContent.style.transform = "translateY(0) scale(1)";
+                }, 10);
+            };
+            closeModal.onclick = function() {
+                modalContent.style.opacity = "0";
+                modalContent.style.transform = "translateY(60px) scale(0.95)";
+                setTimeout(() => {
+                    specialModal.style.display = "none";
+                }, 500);
+            };
+            specialModal.onclick = function(e) {
+                if (e.target === specialModal) {
+                    modalContent.style.opacity = "0";
+                    modalContent.style.transform = "translateY(60px) scale(0.95)";
+                    setTimeout(() => {
+                        specialModal.style.display = "none";
+                    }, 500);
+                }
+            };
+            // Reset modal state if opened again
+            specialModal.addEventListener('transitionend', function() {
+                if (specialModal.style.display === "none") {
+                    modalContent.style.opacity = "0";
+                    modalContent.style.transform = "translateY(60px) scale(0.95)";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

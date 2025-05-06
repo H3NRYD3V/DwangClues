@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clue #6</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #FFF8F0;
+            color: #3D3D3D;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 30px auto 0 auto;
+            text-align: center;
+        }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            color: #3D3D3D;
+            margin-bottom: 20px;
+        }
+        .clue-intro {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(16px, 1.8vw, 20px);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .crossword-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 60px;
+            margin-bottom: 30px;
+        }
+        .crossword-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 42px);
+            grid-template-rows: repeat(10, 42px);
+            gap: 6px;
+            background: none;
+            margin-top: 10px;
+        }
+        .cell {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: #FADADD;
+            border: none;
+            font-size: 22px;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            color: #3D3D3D;
+            outline: none;
+            transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            text-transform: uppercase;
+        }
+        .cell:disabled {
+            background: #F4EBE0;
+            color: #B6A6A6;
+        }
+        .cell.correct {
+            background: #E49393;
+            color: #fff;
+            animation: cellPop 0.4s cubic-bezier(.4,2,.6,1);
+            box-shadow: 0 0 0 3px #E4939355;
+        }
+        .cell.middle {
+            background: #E49393;
+            color: #fff;
+            font-weight: bold;
+            z-index: 2;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+        .cell.middle.vertical-animate {
+            animation: verticalPop 0.7s cubic-bezier(.4,2,.6,1) 1;
+            box-shadow: 0 0 12px 4px #E49393cc, 0 0 0 3px #fff;
+            background: linear-gradient(120deg, #E49393 80%, #fff0 100%);
+            color: #fff;
+        }
+        .cell.middle.vertical-done {
+            background: linear-gradient(120deg, #E49393 80%, #fff0 100%);
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 0 12px 4px #E49393cc, 0 0 0 3px #fff;
+        }
+        .cell.empty {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+        .cell.pink {
+            background: #FADADD;
+        }
+        .cell.red {
+            background: #E49393;
+            color: #fff;
+        }
+        @keyframes cellPop {
+            0% { transform: scale(1);}
+            60% { transform: scale(1.18) rotate(-8deg);}
+            100% { transform: scale(1) rotate(0);}
+        }
+        @keyframes verticalPop {
+            0% { transform: scale(1) rotate(0);}
+            40% { transform: scale(1.25) rotate(6deg);}
+            70% { transform: scale(0.95) rotate(-4deg);}
+            100% { transform: scale(1) rotate(0);}
+        }
+        .crossword-hints {
+            text-align: left;
+            font-size: 19px;
+            font-family: 'Quicksand', sans-serif;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .crossword-hints .hint-row {
+            margin-bottom: 10px;
+        }
+        .input-section {
+            text-align: center;
+            border: 2px dashed #E2D9D9;
+            border-radius: 12px;
+            background-color: #FFFDF9;
+            padding: 20px;
+            max-width: 700px;
+            margin: 30px auto 0 auto;
+            animation: fadeInUp 0.8s;
+        }
+        .code-input-1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(14px, 1.5vw, 18px);
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        #codeInput {
+            padding: 12px 16px;
+            width: clamp(250px, 40vw, 400px);
+            border: 2px dashed #F4EBE0;
+            border-radius: 10px;
+            font-size: clamp(14px, 1.5vw, 18px);
+            background-color: #FFF8F0;
+            color: #3D3D3D;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        #codeInput:focus {
+            background-color: #FFF2E0;
+            border-color: #E49393;
+            outline: none;
+        }
+        .input-section button {
+            background-color: #E49393;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(14px, 1.5vw, 18px);
+            transition: background-color 0.3s;
+        }
+        .input-section button:hover {
+            background-color: #9B4444;
+        }
+        .result-message {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: clamp(14px, 1.5vw, 18px);
+            color: red;
+            text-align: center;
+        }
+        .vibrate {
+            animation: vibrate 0.3s ease-in-out;
+        }
+        @keyframes vibrate {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            75% { transform: translateX(-2px); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 1100px) {
+            .crossword-container { flex-direction: column; align-items: center; gap: 20px;}
+            .crossword-hints { margin-left: 0;}
+        }
+        @media (max-width: 700px) {
+            .content { max-width: 98vw; }
+            .crossword-grid { grid-template-columns: repeat(10, 32px); grid-template-rows: repeat(10, 32px);}
+            .cell { width: 32px; height: 32px; font-size: 16px;}
+            .crossword-hints { font-size: 15px;}
+        }
+        .content.fade-out {
+            opacity: 0;
+            transform: scale(0.97);
+            transition: opacity 0.5s, transform 0.5s;
+            pointer-events: none;
+        }
+        .content.animate-in {
+            animation: fadeInUp 0.8s cubic-bezier(.4,2,.6,1);
+        }
+    </style>
+</head>
+<body>
+    <div class="content animate-in">
+        <h1 class="title">Clue #6: Mini Crossword</h1>
+        <p class="clue-intro">
+            Tìm “kho báu” xong mệt mỏi rồi nên giờ giải ô chữ ngồi một chỗ cho đỡ xíu nghen 🥶 Cái này là chỉ hỏi về độ hiểu của thuyen với dwang thôi chứ không có gì khó hết trơn á 🤯 Nhớ là không dấu, không cách, không viết hoa ạa
+        </p>
+        <div class="crossword-container">
+            <div class="crossword-grid" id="crossword"></div>
+            <div class="crossword-hints">
+                <div class="hint-row">#1 Một hành động của thuyen mà dwang rất sợ</div>
+                <div class="hint-row">#2 Dwang sợ con gì nhất</div>
+                <div class="hint-row">#3 Môn học mà dwang lúc thích lúc không</div>
+                <div class="hint-row">#4 Dwang hay gọi thuyen bằng một cái tên “thân thương” là</div>
+                <div class="hint-row">#5 Đôi giày Dwang thường mang khi chơi thể thao</div>
+                <div class="hint-row">#6 Trên body thuyen, dwang thích nghịch cái gì nhất</div>
+                <div class="hint-row">#7 *Khó* - Dwang thích ăn gì</div>
+                <div class="hint-row">#8 Môn thể thao mà dwang thích nhất</div>
+                <div class="hint-row">#9 (English) Nhỏ, nhưng dwang rất thích đeo</div>
+                <div class="hint-row">#10 Mẫu người ưa thích của dwang</div>
+            </div>
+        </div>
+        <div class="input-section">
+            <p class="code-input-1">Nhập mật mã mà bé đã tìm ra để nhận manh mối tiếp theo nhé</p>
+            <input type="text" id="codeInput" placeholder="Key...">
+            <button id="okBtn" onclick="checkCode()">OK!</button>
+            <p id="result" class="result-message"></p>
+        </div>
+    </div>
+    <script>
+        if (localStorage.getItem("step5Completed") !== "true") {
+            alert("Ăn giann kìaa");
+            window.location.href = "intro.html";
+        }
+        // Ma trận 10x10, 1 là ô hồng, 2 là ô đỏ, 0 là trống
+        const layout = [
+            [0,0,0,0,2,1,1,0,0,0],
+            [0,0,1,1,2,1,0,0,0,0],
+            [0,0,0,0,2,1,1,1,0,0],
+            [0,0,0,1,2,0,0,0,0,0],
+            [0,0,1,1,2,0,0,0,0,0],
+            [0,0,0,0,2,1,0,0,0,0],
+            [0,0,1,1,2,1,1,1,1,1],
+            [1,1,1,1,2,1,0,0,0,0], // hàng 8 đã đổi
+            [0,0,0,0,2,1,1,1,0,0],
+            [0,1,1,1,2,1,1,0,0,0],
+        ];
+
+        const ROWS = 10, COLS = 10;
+        const crossword = document.getElementById('crossword');
+        const cellRefs = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                let cell;
+                if (layout[r][c] === 1) {
+                    cell = document.createElement('input');
+                    cell.type = 'text';
+                    cell.maxLength = 1;
+                    cell.className = 'cell pink';
+                    cell.autocomplete = 'off';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                } else if (layout[r][c] === 2) {
+                    cell = document.createElement('input');
+                    cell.type = 'text';
+                    cell.maxLength = 1;
+                    cell.className = 'cell red';
+                    if (c === 4) cell.classList.add('middle');
+                    cell.autocomplete = 'off';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                } else {
+                    cell = document.createElement('input');
+                    cell.type = 'text';
+                    cell.disabled = true;
+                    cell.className = 'cell empty';
+                }
+                crossword.appendChild(cell);
+                cellRefs[r][c] = cell;
+            }
+        }
+
+        // Đáp án từng hàng, vị trí bắt đầu và độ dài
+        const answers = [
+            { row: 0, col: 4, word: "DAN" },
+            { row: 1, col: 2, word: "GIAN" },
+            { row: 2, col: 4, word: "TOAN" },
+            { row: 3, col: 3, word: "BE" },
+            { row: 4, col: 2, word: "JA2" },
+            { row: 5, col: 4, word: "MO" },
+            { row: 6, col: 2, word: "CHAOLUOI" },
+            { row: 7, col: 0, word: "BONGRO" },
+            { row: 8, col: 4, word: "RING" },
+            { row: 9, col: 1, word: "THUYEN" }
+        ];
+
+        // Cột giữa (ô đỏ) là cột 3 (index 3), đáp án dọc là DATE2MARRY
+        const verticalKey = { col: 4, word: "DATE2MARRY" };
+
+        // Animation
+        function animateCells(cells) {
+            cells.forEach(cell => {
+                cell.classList.remove('correct');
+                void cell.offsetWidth; // force reflow
+                cell.classList.add('correct');
+            });
+            setTimeout(() => {
+                cells.forEach(cell => cell.classList.remove('correct'));
+            }, 700);
+        }
+        function animateVertical() {
+            for (let i = 0; i < verticalKey.word.length; i++) {
+                const cell = cellRefs[i][verticalKey.col];
+                cell.classList.add('vertical-animate');
+                cell.classList.add('vertical-done'); // Giữ hiệu ứng đặc biệt
+            }
+            setTimeout(() => {
+                for (let i = 0; i < verticalKey.word.length; i++) {
+                    cellRefs[i][verticalKey.col].classList.remove('vertical-animate');
+                }
+            }, 1200);
+        }
+
+        // Kiểm tra từng hàng ngang
+        let completedRows = Array(answers.length).fill(false);
+        answers.forEach(({ row, col, word }, idx) => {
+            const cells = [];
+            for (let i = 0; i < word.length; i++) {
+                cells.push(cellRefs[row][col + i]);
+            }
+            cells.forEach((cell, i) => {
+                cell.addEventListener('input', function () {
+                    cell.value = cell.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 1);
+                    let userWord = cells.map(c => (c.value || '').toUpperCase()).join('');
+                    if (userWord === word && !completedRows[idx]) {
+                        animateCells(cells);
+                        completedRows[idx] = true;
+                        cells.forEach(c => c.disabled = true);
+                        checkVerticalKey();
+                    }
+                });
+            });
+        });
+
+        // Kiểm tra cột dọc (key)
+        function checkVerticalKey() {
+            if (!completedRows.every(Boolean)) return;
+            let cells = [];
+            for (let i = 0; i < verticalKey.word.length; i++) {
+                cells.push(cellRefs[i][verticalKey.col]);
+            }
+            let userWord = cells.map(c => (c.value || '').toUpperCase()).join('');
+            if (userWord === verticalKey.word) {
+                animateVertical();
+                document.getElementById('codeInput').disabled = false;
+                document.getElementById('okBtn').disabled = false;
+                document.querySelector('.input-section').classList.add('key-open-animate');
+            }
+        }
+
+        // Disable input mật mã ban đầu
+        document.getElementById('codeInput').disabled = true;
+        document.getElementById('okBtn').disabled = true;
+
+        // Xử lý nhập key cuối
+        function checkCode() {
+            const input = document.getElementById("codeInput").value.trim().toLowerCase();
+            const result = document.getElementById("result");
+            if (input === "date2marry") {
+                localStorage.setItem("clue6Completed", "true");
+                document.querySelector('.content').classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = "k7.html";
+                }, 600);
+            } else {
+                result.textContent = "❌ ẹc ẹc ❌";
+                result.style.color = "red";
+                result.classList.add("vibrate");
+                setTimeout(() => {
+                    result.classList.remove("vibrate");
+                }, 300);
+            }
+        }
+
+        // Cho phép bấm phím di chuyển
+        crossword.addEventListener('keydown', function (e) {
+            if (!e.target.classList.contains('cell') || e.target.disabled) return;
+            let r = +e.target.dataset.row, c = +e.target.dataset.col;
+            if (e.key === "ArrowRight" || e.key === "Tab") {
+                e.preventDefault();
+                do { c++; } while (c < COLS && (!cellRefs[r][c] || cellRefs[r][c].disabled));
+                if (c < COLS && cellRefs[r][c]) cellRefs[r][c].focus();
+            }
+            if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                do { c--; } while (c >= 0 && (!cellRefs[r][c] || cellRefs[r][c].disabled));
+                if (c >= 0 && cellRefs[r][c]) cellRefs[r][c].focus();
+            }
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                do { r++; } while (r < ROWS && (!cellRefs[r][c] || cellRefs[r][c].disabled));
+                if (r < ROWS && cellRefs[r][c]) cellRefs[r][c].focus();
+            }
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                do { r--; } while (r >= 0 && (!cellRefs[r][c] || cellRefs[r][c].disabled));
+                if (r >= 0 && cellRefs[r][c]) cellRefs[r][c].focus();
+            }
+        });
+    </script>
+</body>
+</html>

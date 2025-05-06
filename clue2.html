@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Clue #2</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+</head>
+<body class="page3">
+    <div class="center-wrapper">
+        <div class="content animate-in">
+            <h1 class="title">Clue #2: Tin nhắn "ẩn"</h1>
+            <p class="clue-intro">Ùuuu, qua được tới đây luôn đó à 🤯 Coi bộ trình giải manh mối của bé không phải dạng vừa đâu nhỉ 🤭 Bây giờ thì test trí nhớ lần 2, để xem não bé có “to” không nhaaa</p>
+            <div class="poem-card">
+                <p>
+                    Thuyen còn giữ tin nhắn đầu tiên giữa thuyen với dwang khi mới bắt đầu quen không?<br>
+                    Nhớ lúc ấy cả hai đứa còn yêu nhau đắm say - tại tháng đầu yêu mà 🤧😭<br>
+                    Tin nhắn đó cũng không đặc biệt lắm 😏 chỉ là hơi bẩn bựa thôi à 😎<br>
+                    Cái hôm đấy lúc buổi sáng tự nhiên thuyen “tỉnh tò” dwang siêu bất ngờ luôn á 🥰<br>
+                    Đang có người thứ 3 vứt luôn mới chịu 😎 T-tại thuyen xinh hơn nó, dễ thương hơn nó,<br>
+                    biết chăm lo cho kao hơn nó,... bla bla bla mà dwang không kể hết được 🤯<br>
+                    Nói đi nói lại, vậy tin nhắn đó là tin nhắn nào nhỉ?
+                </p>
+            </div>
+            <p class="hint">(Hint: Bé hãy lấy chữ cái đầu của từng từ trong tin nhắn đó rồi ghép lại nhé!)</p>
+            <div class="input-section">
+                <p class="code-input-1">Nhập mật mã mà bé đã tìm ra để nhận manh mối tiếp theo nhé</p>
+                <input type="text" id="codeInput" placeholder="Key...">
+                <button onclick="checkCode()">OK!</button>
+                <p id="result" class="result-message"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Kiểm tra nếu người dùng chưa hoàn thành bước 2
+        if (localStorage.getItem("clue1Completed") !== "true") {
+            alert("Ăn giann kìaa");
+            window.location.href = "intro.html";
+        }
+
+        function checkCode() {
+            const input = document.getElementById("codeInput").value.trim().toLowerCase();
+            const result = document.getElementById("result");
+            if (input === "enk") {
+                localStorage.setItem("clue2Completed", "true");
+                document.querySelector('.content').classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = "c3.html";
+                }, 600);
+            } else {
+                result.textContent = "❌ ẹc ẹc ❌";
+                result.style.color = "red";
+                result.classList.add("vibrate");
+                setTimeout(() => {
+                    result.classList.remove("vibrate");
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

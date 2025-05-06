@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>7 Clues Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <style>
+        .intro-container {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s cubic-bezier(.4,2,.6,1) 0.2s forwards;
+        }
+        .title {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(.4,2,.6,1) 0.5s forwards;
+        }
+        .intro-text {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(.4,2,.6,1) 0.8s forwards;
+        }
+        .start-button {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            animation: fadeInPop 0.7s cubic-bezier(.4,2,.6,1) 1.2s forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInPop {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95);}
+            60% { opacity: 1; transform: translateY(-8px) scale(1.05);}
+            100% { opacity: 1; transform: translateY(0) scale(1);}
+        }
+    </style>
+</head>
+<body class="page1">
+    <div class="center-wrapper">
+        <div class="intro-container">
+            <h1 class="title">7 Clues Challenge</h1>
+            <p class="intro-text">
+                Nhiệt liệt chào mừng thuyenn đã đến với thử thách của dwang! 😎 Ani 3m lần này, thay vì chỉ nhận quà như thường lệ thì bé phải giải các manh mối mà dwang đã chuẩn bị để dẫn đi đến “sự thật” cuối cùng nha 😈 Nhắc trước là bé sẽ phải vận dụng tối đa 100% sức mạnh của não và độ khó của từng manh mối sẽ là random - sẽ có những manh mối dễ mà khó, khó mà dễ, nhớ là đọc kĩ đề nghenn!!! 🤯 Không luyên thuyên nữa, let’s start now<3 🔥
+            </p>
+            <a href="clue1.html" class="start-button">Bắt đầu</a>
+        </div>
+    </div>
+
+    <script>
+        // Đánh dấu bước 1 đã hoàn thành khi nhấn nút "Bắt đầu"
+        document.querySelector(".start-button").addEventListener("click", () => {
+            localStorage.setItem("introCompleted", "true");
+        });
+    </script>
+</body>
+</html>

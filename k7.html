@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clue #7</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #fff7f0;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            color: #3D3D3D;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 36px 12px 0 12px;
+            background: #fff7f0;
+            border-radius: 18px;
+            min-height: 100vh;
+            animation: fadeInUp 0.8s cubic-bezier(.4,2,.6,1);
+        }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.7rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+        .desc {
+            text-align: center;
+            font-size: 1.18rem;
+            margin-bottom: 34px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .polaroid-list {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+        .polaroid {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px 0 #e4939340, 0 0 0 2px #fadadd40;
+            padding: 16px 16px 18px 16px;
+            width: 235px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: 
+                box-shadow 0.35s cubic-bezier(.4,2,.6,1),
+                transform 0.35s cubic-bezier(.4,2,.6,1);
+        }
+        .polaroid:hover {
+            box-shadow: 0 16px 48px 0 #e49393b0, 0 0 0 6px #fadaddb0;
+            transform: translateY(-12px) scale(1.045) rotate(-2deg);
+            z-index: 2;
+        }
+        .polaroid img.main-img {
+            width: 195px;
+            height: 195px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px #e4939320;
+            margin-bottom: 12px;
+            background: #f4ebe0;
+        }
+        .polaroid-label {
+            font-family: 'Quicksand', cursive;
+            font-size: 1.22rem;
+            margin-top: 8px;
+            margin-bottom: 0;
+            text-align: center;
+            color: #3D3D3D;
+            cursor: pointer;
+            transition: color 0.2s, text-shadow 0.2s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 12px #fadadd60;
+            display: inline-block;
+            text-decoration: none; /* Bỏ gạch dưới */
+        }
+        .polaroid-label:hover {
+            color: #E49393;
+            /* Không underline nữa */
+            text-shadow: 0 4px 24px #e4939340;
+        }
+        .hint {
+            text-align: center;
+            font-size: 1.18rem;
+            color: #b68b8b;
+            margin-bottom: 18px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+        }
+        .input-section {
+            text-align: center;
+            border: 2px dashed #E2D9D9;
+            border-radius: 12px;
+            background-color: #FFFDF9;
+            padding: 20px;
+            max-width: 800px;
+            margin: 30px auto 0 auto;
+            animation: fadeInUp 0.8s;
+        }
+        .code-input-1 {
+            text-align: center;
+            font-size: 1.18rem;
+            margin-bottom: 16px;
+        }
+        .input-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+        #codeInput {
+            width: 70%;
+            padding: 14px 0;
+            border-radius: 12px;
+            border: 2px dashed #e49393;
+            background: #fff6ed;
+            font-size: 1.18rem;
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+            margin-bottom: 0;
+            outline: none;
+            color: #3D3D3D;
+            transition: 
+                border-color 0.25s cubic-bezier(.4,2,.6,1),
+                background 0.25s cubic-bezier(.4,2,.6,1),
+                box-shadow 0.25s cubic-bezier(.4,2,.6,1);
+        }
+        #codeInput::placeholder {
+            color: #8c8c8c;
+            opacity: 1;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        #codeInput:focus {
+            border: 2px solid #e49393;
+            background: #fff;
+            box-shadow: 0 0 0 2px #fadadd80;
+            animation: inputFocusPop 0.3s;
+        }
+        @keyframes inputFocusPop {
+            0% { box-shadow: 0 0 0 0 #fadadd80; }
+            70% { box-shadow: 0 0 0 8px #fadadd40; }
+            100% { box-shadow: 0 0 0 2px #fadadd80; }
+        }
+        #okBtn {
+            padding: 12px 28px;
+            border-radius: 10px;
+            border: none;
+            background: #E49393;
+            color: #fff;
+            font-size: 1.18rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        #okBtn:hover, #okBtn:focus {
+            background: #d16b6b;
+            transform: scale(1.06);
+        }
+        .result-message {
+            text-align: center;
+            min-height: 24px;
+            font-size: 1.18rem;
+            margin-top: 12px;
+            transition: color 0.2s;
+        }
+        .result-message.correct-animate {
+            animation: correctPop 0.6s cubic-bezier(.4,2,.6,1);
+        }
+        @keyframes correctPop {
+            0% { transform: scale(0.7); opacity: 0; }
+            60% { transform: scale(1.15); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .vibrate {
+            animation: vibrate 0.3s ease-in-out;
+        }
+        @keyframes vibrate {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            75% { transform: translateX(-2px); }
+            100% { transform: translateX(0); }
+        }
+        .fade-out {
+            animation: slideOutLeft 0.7s forwards;
+        }
+        @keyframes slideOutLeft {
+            0% { opacity: 1; transform: translateX(0);}
+            100% { opacity: 0; transform: translateX(-100vw);}
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; transform: scale(0.97);}
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @media (max-width: 1100px) {
+            .polaroid-list { gap: 18px; }
+            .polaroid { width: 40vw; min-width: 160px; max-width: 230px;}
+            .polaroid img.main-img { width: 90%; height: 32vw; min-height: 120px; max-height: 200px;}
+        }
+        @media (max-width: 700px) {
+            .content { padding: 8px 2vw 0 2vw;}
+            .polaroid-list { gap: 8px; }
+            .polaroid { width: 90vw; min-width: 120px; max-width: 98vw;}
+            .polaroid img.main-img { width: 90%; height: 38vw; min-height: 80px; max-height: 140px;}
+        }
+        .slide-part {
+            opacity: 1;
+            transform: translateX(0);
+            transition:
+                opacity 0.6s cubic-bezier(.77,0,.18,1),
+                transform 0.7s cubic-bezier(.77,0,.18,1);
+        }
+
+        .slide-part.slide-out {
+            opacity: 0;
+            transform: translateX(-120vw) skewX(-8deg) scale(0.98);
+            filter: blur(2px) brightness(0.95);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+    // Bảo mật: chỉ cho vào nếu đã hoàn thành clue6
+    if (localStorage.getItem("step6Completed") !== "true") {
+        alert("Ăn giann kìaa");
+        window.location.href = "intro.html";
+    }
+    </script>
+    <div class="content animate-in">
+        <h1 class="title slide-part">Clue #7: Image “Ciper”</h1>
+        <div class="desc slide-part">
+            Ghê dữ vậy ta 🐱 Qua được cái phần Crossword là giỏi lắm luôn á nha không có dỡn đâu! 😎<br>
+            Bé đã và đang đứng trước cửa của cửa “sự thật chỉ có một rồi” 🤯 Chỉ cần chịu khó chút tí cuối này thôi, nhưng hơi nhức mắt nghen, là bé sẽ tiến tới phần mà dwang đã chuẩn bị! 💗
+        </div>
+        <div class="polaroid-list slide-part">
+            <div class="polaroid">
+                <img class="main-img" src="image_clue7/1_polaroid.jpg" alt="Dwang">
+                <a class="polaroid-label" href="image_clue7/1.jpg" download="dwang.jpg">Dwang 💗</a>
+            </div>
+            <div class="polaroid">
+                <img class="main-img" src="image_clue7/2_polaroid.jpg" alt="Mullet">
+                <a class="polaroid-label" href="image_clue7/2.jpg" download="mullet.jpg">Mullet</a>
+            </div>
+            <div class="polaroid">
+                <img class="main-img" src="image_clue7/3_polaroid.jpg" alt="My body">
+                <a class="polaroid-label" href="image_clue7/3.jpg" download="mybody.jpg">My body 🐧</a>
+            </div>
+            <div class="polaroid">
+                <img class="main-img" src="image_clue7/4.jpg" alt="Squeezeee">
+                <a class="polaroid-label" href="image_clue7/4.jpg" download="squeeze.jpg">Squeezeee</a>
+            </div>
+        </div>
+        <div class="hint slide-part">
+            (Bấm vào chữ để tải về ảnh nha bé &lt;3 Mỗi ảnh sẽ ẩn giấu 1 từ (hoặc kí tự), bé hãy tìm và ghép nó lại để thành “chiếc key” cuối cùng nhé!)
+        </div>
+        <div class="input-section slide-part">
+            <p class="code-input-1">Nhập mật mã mà bé đã tìm ra để nhận manh mối tiếp theo nhé</p>
+            <div class="input-row">
+                <input type="text" id="codeInput" placeholder="Key..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                <button id="okBtn" onclick="checkCode()">OK!</button>
+            </div>
+            <p id="result" class="result-message"></p>
+        </div>
+    </div>
+    <script>
+        function checkCode() {
+            const input = document.getElementById("codeInput").value.trim().toLowerCase();
+            const result = document.getElementById("result");
+            if (input === "thuyen<3dwang3mani") {
+                localStorage.setItem("clue7Completed", "true");
+
+                // Tạo hộp thông báo custom
+                if (!document.getElementById('custom-success-modal')) {
+                    const modal = document.createElement('div');
+                    modal.id = 'custom-success-modal';
+                    modal.innerHTML = `
+                        <div class="modal-bg"></div>
+                        <div class="modal-content">
+                            <div class="modal-title">🎉 Correct! 🎉</div>
+                            <div class="modal-desc">Bé đã hoàn thành thử thách!<br>Nhấn OK để tiếp tục nha 💗</div>
+                            <button class="modal-ok-btn">OK</button>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+
+                    // CSS cho modal
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        #custom-success-modal {
+                            position: fixed; z-index: 9999; inset: 0;
+                            display: flex; align-items: center; justify-content: center;
+                        }
+                        #custom-success-modal .modal-bg {
+                            position: absolute; inset: 0;
+                            background: rgba(250, 218, 221, 0.85);
+                            backdrop-filter: blur(2px);
+                        }
+                        #custom-success-modal .modal-content {
+                            position: relative;
+                            background: #fff8f0;
+                            border-radius: 18px;
+                            box-shadow: 0 8px 48px #e4939340;
+                            padding: 38px 32px 28px 32px;
+                            text-align: center;
+                            min-width: 280px;
+                            animation: modalPop 0.5s cubic-bezier(.4,2,.6,1);
+                        }
+                        #custom-success-modal .modal-title {
+                            font-size: 2rem;
+                            font-family: 'Quicksand', serif;
+                            color: #E49393;
+                            margin-bottom: 10px;
+                            font-weight: bold;
+                        }
+                        #custom-success-modal .modal-desc {
+                            font-size: 1.15rem;
+                            color: #3D3D3D;
+                            margin-bottom: 22px;
+                            font-family: 'Quicksand', sans-serif;
+                        }
+                        #custom-success-modal .modal-ok-btn {
+                            padding: 10px 32px;
+                            border-radius: 10px;
+                            border: none;
+                            background: #E49393;
+                            color: #fff;
+                            font-size: 1.1rem;
+                            font-family: 'Quicksand', sans-serif;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: background 0.2s, transform 0.2s;
+                        }
+                        #custom-success-modal .modal-ok-btn:hover {
+                            background: #d16b6b;
+                            transform: scale(1.06);
+                        }
+                        @keyframes modalPop {
+                            0% { transform: scale(0.7); opacity: 0; }
+                            60% { transform: scale(1.08); opacity: 1; }
+                            100% { transform: scale(1); opacity: 1; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+
+                    // Khi bấm OK
+                    modal.querySelector('.modal-ok-btn').onclick = function() {
+                        modal.remove();
+                        // Slide từng phần rồi chuyển trang
+                        const parts = Array.from(document.querySelectorAll('.slide-part'));
+                        parts.forEach((el, idx) => {
+                            setTimeout(() => {
+                                el.classList.add('slide-out');
+                            }, idx * 250);
+                        });
+                        setTimeout(() => {
+                            window.location.href = "congrasts.html";
+                        }, 250 * parts.length + 900);
+                    };
+                }
+            } else {
+                result.textContent = "❌ ẹc ẹc ❌";
+                result.style.color = "red";
+                result.classList.remove("correct-animate");
+                result.classList.add("vibrate");
+                setTimeout(() => {
+                    result.classList.remove("vibrate");
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>
+``` 

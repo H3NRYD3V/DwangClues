@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clue #3</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body.page4 {
+            background-color: #FFF8F0;
+            color: #3D3D3D;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .center-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .content {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 48px);
+            color: #3D3D3D;
+            margin-bottom: 20px;
+        }
+        .clue-intro {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(16px, 1.8vw, 20px);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .video-link {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #8B5C5C;
+            margin: 100px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .video-link a {
+            color: #8B5C5C;
+            text-decoration: none;
+            font-size: 3rem;
+        }
+        .input-section {
+            text-align: center;
+            border: 2px dashed #E2D9D9;
+            border-radius: 12px;
+            background-color: #FFFDF9;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .code-input-1 {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(14px, 1.5vw, 18px);
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        #codeInput {
+            padding: 12px 16px;
+            width: clamp(250px, 40vw, 400px);
+            border: 2px dashed #F4EBE0;
+            border-radius: 10px;
+            font-size: clamp(14px, 1.5vw, 18px);
+            background-color: #FFF8F0;
+            color: #3D3D3D;
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        #codeInput:focus {
+            background-color: #FFF2E0;
+            border-color: #E49393;
+            outline: none;
+        }
+        .input-section button {
+            background-color: #E49393;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-left: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(14px, 1.5vw, 18px);
+            transition: background-color 0.3s;
+        }
+        .input-section button:hover {
+            background-color: #9B4444;
+        }
+        .result-message {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: clamp(14px, 1.5vw, 18px);
+            color: red;
+            text-align: center;
+        }
+        .vibrate {
+            animation: vibrate 0.3s ease-in-out;
+        }
+        @keyframes vibrate {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            50% { transform: translateX(2px); }
+            75% { transform: translateX(-2px); }
+            100% { transform: translateX(0); }
+        }
+        .fade-out {
+            animation: fadeOut 0.6s forwards;
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: scale(0.97) translateY(30px);
+            }
+        }
+    </style>
+</head>
+<body class="page4">
+    <div class="center-wrapper">
+        <div class="content animate-in">
+            <h1 class="title">Clue #3: “Phỏng vấn” mini</h1>
+            <p class="clue-intro">
+                Nếu bé đã đi được tới đây thì chúc mừng bé đã đến với video đầu tiên của chuỗi thử thách 7 manh mối này 😆 Trong video sẽ có ẩn chứa các “thông điệp ẩn”, bé nhớ xem kĩ rồi ghép lại thành một "chiếc key" nha 🫶
+            </p>
+            <div class="video-link">
+                <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank" title="Xem video"><span>This is a link 🔗</span></a>
+            </div>
+            <div class="input-section">
+                <p class="code-input-1">Nhập mật mã mà bé đã tìm ra để nhận manh mối tiếp theo nhé</p>
+                <input type="text" id="codeInput" placeholder="Key...">
+                <button onclick="checkCode()">OK!</button>
+                <p id="result" class="result-message"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Kiểm tra nếu người dùng chưa hoàn thành bước 3
+        if (localStorage.getItem("clue2Completed") !== "true") {
+            alert("Ăn giann kìaa");
+            window.location.href = "intro.html";
+        }
+        function checkCode() {
+            const input = document.getElementById("codeInput").value.trim().toLowerCase();
+            const result = document.getElementById("result");
+            if (input === "threemonthsanniversary") {
+                localStorage.setItem("clue3Completed", "true");
+                document.querySelector('.content').classList.add('fade-out');
+                setTimeout(() => {
+                    window.location.href = "d4.html";
+                }, 600);
+            } else {
+                result.textContent = "❌ ẹc ẹc ❌";
+                result.style.color = "red";
+                result.classList.add("vibrate");
+                setTimeout(() => {
+                    result.classList.remove("vibrate");
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>
