@@ -284,6 +284,7 @@
             const result = document.getElementById("result");
             if (input === "biini") {
                 localStorage.setItem("clue4Completed", "true");
+                console.log("ok!");
                 document.querySelector('.content').classList.add('fade-out');
                 setTimeout(() => {
                     window.location.href = "cc5.html";
